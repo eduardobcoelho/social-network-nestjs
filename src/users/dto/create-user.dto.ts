@@ -1,0 +1,25 @@
+import { Transform, Type } from 'class-transformer';
+import { IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
+import { UserGender } from '../entity/user.entity';
+
+export class CreateUserDto {
+  @IsString()
+  name: string;
+
+  @IsString()
+  email: string;
+
+  @IsString()
+  document: string;
+
+  @IsEnum(UserGender)
+  @IsOptional()
+  @Transform(({ value }) => (value || UserGender.OTHER) as UserGender, {
+    toClassOnly: true,
+  })
+  gender: UserGender;
+
+  @IsDate()
+  @Type(() => Date)
+  birthDate: Date;
+}

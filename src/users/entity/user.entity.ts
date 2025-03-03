@@ -11,4 +11,6 @@ export class User {
   name: string;
   gender: UserGender;
   birthDate: Date;
+  createdAt: Date;
+  updatedAt?: Date;
 }

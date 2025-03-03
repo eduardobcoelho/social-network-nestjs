@@ -17,19 +17,26 @@ export class UsersService {
     return this.users.find((user) => user.id === id);
   }
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const newUser = {
-      id: randomInt(20),
+      id: randomInt(1000000),
+      createdAt: new Date(),
       ...createUserDto,
     };
     this.users.push(newUser);
+
     return newUser;
   }
 
-  async update(user: User, updateUserDto: UpdateUserDto) {
-    return {
+  async update(user: User, updateUserDto: UpdateUserDto): Promise<User> {
+    const userUpdated = {
       ...user,
       ...updateUserDto,
+      updatedAt: new Date(),
+      id: user.id,
     };
+    Object.assign(user, userUpdated);
+
+    return userUpdated;
   }
 }

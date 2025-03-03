@@ -15,10 +15,14 @@ import {
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private postsService: PostsService) {}
+  constructor(
+    private postsService: PostsService,
+    private usersService: UsersService,
+  ) {}
 
   @Get()
   async fetchAll(
@@ -38,6 +42,9 @@ export class PostsController {
 
   @Post()
   async create(@Body(ValidationPipe) input: CreatePostDto) {
+    const user = await this.usersService.find(input.userId);
+    if (!user) throw new NotFoundException('User not found');
+
     return await this.postsService.create(input);
   }
 

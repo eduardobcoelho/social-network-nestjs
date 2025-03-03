@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { DefaultGenderPipe } from './pipe/default-gender/default-gender.pipe';
+import { CommonModule } from 'src/common/common.module';
 
 @Module({
+  imports: [CommonModule],
   controllers: [UsersController],
-  providers: [UsersService, DefaultGenderPipe],
+  providers: [UsersService],
   exports: [UsersService],
 })
 export class UsersModule {}

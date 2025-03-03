@@ -5,9 +5,16 @@ import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { LikesModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
-  imports: [UsersModule, PostsModule, LikesModule, CommentsModule],
+  imports: [
+    UsersModule,
+    PostsModule,
+    LikesModule,
+    CommentsModule,
+    CommonModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

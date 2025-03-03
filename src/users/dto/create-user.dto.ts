@@ -1,5 +1,5 @@
 import { Transform, Type } from 'class-transformer';
-import { IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
 import { UserGender } from '../entity/user.entity';
 
 export class CreateUserDto {
@@ -7,6 +7,7 @@ export class CreateUserDto {
   name: string;
 
   @IsString()
+  @IsEmail()
   email: string;
 
   @IsString()

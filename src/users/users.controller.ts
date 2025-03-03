@@ -14,6 +14,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { DefaultGenderPipe } from './pipe/default-gender/default-gender.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -36,7 +37,10 @@ export class UsersController {
   }
 
   @Post()
-  create(@Body(ValidationPipe) input: CreateUserDto) {
+  create(
+    @Body(new ValidationPipe({ transform: true }), DefaultGenderPipe)
+    input: CreateUserDto,
+  ) {
     return this.usersService.create(input);
   }
 

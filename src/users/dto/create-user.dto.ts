@@ -15,9 +15,7 @@ export class CreateUserDto {
 
   @IsEnum(UserGender)
   @IsOptional()
-  @Transform(({ value }) => (value || UserGender.OTHER) as UserGender, {
-    toClassOnly: true,
-  })
+  @Transform(({ value }) => (value ?? UserGender.OTHER) as UserGender)
   gender: UserGender;
 
   @IsDate()

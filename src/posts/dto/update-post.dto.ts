@@ -1,7 +1,7 @@
-import { IsString, Max } from 'class-validator';
+import { IsString, MaxLength } from 'class-validator';
 
 export class UpdatePostDto {
   @IsString()
-  @Max(1000)
+  @MaxLength(1000)
   text: string;
 }

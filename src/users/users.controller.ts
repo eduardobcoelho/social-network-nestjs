@@ -3,7 +3,6 @@ import {
   Controller,
   DefaultValuePipe,
   Get,
-  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -21,27 +20,24 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  fetchAll(
+  async fetchAll(
     @Query('page', ParseIntPipe) page: number,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
   ) {
-    return this.usersService.fetchAll(page, limit);
+    return await this.usersService.fetchAll(page, limit);
   }
 
   @Get(':id')
   async find(@Param('id', ParseIntPipe) id: number) {
-    const user = await this.usersService.find(id);
-
-    if (!user) throw new NotFoundException('User not found');
-    return user;
+    return await this.usersService.find(id);
   }
 
   @Post()
-  create(
+  async create(
     @Body(new ValidationPipe({ transform: true }), DefaultGenderPipe)
     input: CreateUserDto,
   ) {
-    return this.usersService.create(input);
+    return await this.usersService.create(input);
   }
 
   @Put(':id')
@@ -49,7 +45,6 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
     @Body(ValidationPipe) input: UpdateUserDto,
   ) {
-    const user = await this.find(id);
-    return this.usersService.update(user, input);
+    return await this.usersService.update(id, input);
   }
 }

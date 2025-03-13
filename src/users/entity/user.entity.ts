@@ -14,3 +14,9 @@ export class User {
   createdAt: Date;
   updatedAt?: Date;
 }
+
+export enum UserUnicKeys {
+  ID = 'id',
+  EMAIL = 'email',
+  DOCUMENT = 'document',
+}

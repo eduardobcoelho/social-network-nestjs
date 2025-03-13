@@ -1,6 +1,8 @@
 import { Transform, Type } from 'class-transformer';
 import { IsDate, IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
 import { UserGender } from '../entity/user.entity';
+import { IsDocument } from '../validators';
+import { TransformToOnlyNumbers } from 'src/common/transforms';
 
 export class CreateUserDto {
   @IsString()
@@ -11,6 +13,8 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
+  @IsDocument()
+  @Transform(TransformToOnlyNumbers())
   document: string;
 
   @IsEnum(UserGender)

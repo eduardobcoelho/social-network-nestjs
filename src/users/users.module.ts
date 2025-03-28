@@ -6,6 +6,14 @@ import { CreateUserService } from './service/create-user/create-user.service';
 import { FindUserService } from './service/find-user/find-user.service';
 import { UpdateUserService } from './service/update-user/update-user.service';
 import { DeleteUserService } from './service/delete-user/delete-user.service';
+import { UserRepository } from './repository/user.repository';
+
+const repositoryProvider = [
+  {
+    provide: 'IUserRepository',
+    useClass: UserRepository,
+  },
+];
 
 const serviceProviders = [
   {
@@ -29,6 +37,6 @@ const serviceProviders = [
 @Module({
   imports: [CommonModule],
   controllers: [UsersController],
-  providers: [DefaultGenderPipe, ...serviceProviders],
+  providers: [DefaultGenderPipe, ...repositoryProvider, ...serviceProviders],
 })
 export class UsersModule {}

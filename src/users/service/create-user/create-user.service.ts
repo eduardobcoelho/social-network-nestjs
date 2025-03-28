@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 export interface ICreateUserService {
-  exec: (createUserDto: CreateUserDto) => Promise<void>;
+  exec: (data: CreateUserDto) => Promise<void>;
 }
 
 @Injectable()
 export class CreateUserService implements ICreateUserService {
   constructor() {}
 
-  exec(createUserDto: CreateUserDto) {
-    console.log(createUserDto);
+  exec(data: CreateUserDto) {
+    console.log(data);
     return Promise.resolve();
   }
 }

@@ -1,9 +1,9 @@
 import { UpdatePostDto } from 'src/posts/dto/update-post.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { UserEntity } from '../entity/user.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { UserUnicKeys } from '../enum';
+import { UserEntity } from '../entity/user/user.entity';
 
 export interface IUserRepository {
   find: (value: string | number, key?: UserUnicKeys) => Promise<UserEntity>;

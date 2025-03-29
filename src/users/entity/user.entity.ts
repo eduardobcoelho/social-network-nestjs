@@ -1,7 +1,7 @@
 import { UserGender } from 'src/users/enum';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'user' })
+@Entity({ name: 'users', schema: 'USERS' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id: string;

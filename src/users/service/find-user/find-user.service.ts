@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserEntity } from 'src/users/entity/user/user.entity';
+import { UserEntity } from 'src/users/entity/user.entity';
 import { UserUnicKeys } from 'src/users/enum';
 
 export interface IFindUserService {

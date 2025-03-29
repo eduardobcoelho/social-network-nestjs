@@ -7,10 +7,12 @@ import { FindUserService } from './service/find-user/find-user.service';
 import { UpdateUserService } from './service/update-user/update-user.service';
 import { DeleteUserService } from './service/delete-user/delete-user.service';
 import { UserRepository } from './repository/user.repository';
-import { DatabaseModule } from 'src/database/database.module';
-import { userProvider } from './entity/user/user.provider';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity } from './entity/user.entity';
 
-const repositoryProvider = [
+const pipes = [DefaultGenderPipe];
+
+const repositoryProviders = [
   {
     provide: 'IUserRepository',
     useClass: UserRepository,
@@ -36,16 +38,9 @@ const serviceProviders = [
   },
 ];
 
-const entityProvider = [userProvider];
-
 @Module({
-  imports: [CommonModule, DatabaseModule],
+  imports: [CommonModule, TypeOrmModule.forFeature([UserEntity])],
   controllers: [UsersController],
-  providers: [
-    DefaultGenderPipe,
-    ...repositoryProvider,
-    ...serviceProviders,
-    ...entityProvider,
-  ],
+  providers: [...pipes, ...repositoryProviders, ...serviceProviders],
 })
 export class UsersModule {}

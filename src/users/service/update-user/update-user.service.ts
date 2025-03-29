@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
-import { UserEntity } from 'src/users/entity/user/user.entity';
+import { UserEntity } from 'src/users/entity/user.entity';
 
 export interface IUpdateUserService {
   exec: (id: number, data: UpdateUserDto) => Promise<UserEntity>;

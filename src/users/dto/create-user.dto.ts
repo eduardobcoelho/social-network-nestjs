@@ -1,8 +1,8 @@
 import { Transform, Type } from 'class-transformer';
 import { IsDate, IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
-import { UserGender } from '../entity/user.entity';
 import { IsDocument } from '../validators';
 import { TransformToOnlyNumbers } from 'src/common/transforms';
+import { UserGender } from '../enum';
 
 export class CreateUserDto {
   @IsString()

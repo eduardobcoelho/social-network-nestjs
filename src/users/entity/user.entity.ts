@@ -1,22 +1,29 @@
-export enum UserGender {
-  MALE = 'MALE',
-  FEMALE = 'FEMALE',
-  OTHER = 'OTHER',
-}
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { UserGender } from '../enum';
 
-export class User {
-  id: number;
-  email: string;
-  document: string;
+@Entity({ name: 'user' })
+export class UserEntity {
+  @PrimaryGeneratedColumn()
+  id: string;
+
+  @Column({ length: 255 })
   name: string;
-  gender: UserGender;
-  birthDate: Date;
-  createdAt: Date;
-  updatedAt?: Date;
-}
 
-export enum UserUnicKeys {
-  ID = 'id',
-  EMAIL = 'email',
-  DOCUMENT = 'document',
+  @Column({ length: 255 })
+  email: string;
+
+  @Column({ length: 255 })
+  document: string;
+
+  @Column({ type: 'enum', enum: UserGender })
+  gender: UserGender;
+
+  @Column()
+  birthDate: Date;
+
+  @Column()
+  createdAt: Date;
+
+  @Column()
+  updatedAt: Date;
 }

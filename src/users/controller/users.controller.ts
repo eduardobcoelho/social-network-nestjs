@@ -4,6 +4,7 @@ import {
   // DefaultValuePipe,
   Get,
   HttpCode,
+  Inject,
   Param,
   ParseIntPipe,
   Post,
@@ -21,8 +22,13 @@ import { IFindUserService } from '../service/find-user/find-user.service';
 @Controller('users')
 export class UsersController {
   constructor(
+    @Inject('ICreateUserService')
     private readonly createUserService: ICreateUserService,
+
+    @Inject('IUpdateUserService')
     private readonly updateUserService: IUpdateUserService,
+
+    @Inject('IFindUserService')
     private readonly findUserService: IFindUserService,
   ) {}
 

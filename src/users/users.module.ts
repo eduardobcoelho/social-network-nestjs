@@ -7,6 +7,8 @@ import { FindUserService } from './service/find-user/find-user.service';
 import { UpdateUserService } from './service/update-user/update-user.service';
 import { DeleteUserService } from './service/delete-user/delete-user.service';
 import { UserRepository } from './repository/user.repository';
+import { DatabaseModule } from 'src/database/database.module';
+import { userProvider } from './entity/user.provider';
 
 const repositoryProvider = [
   {
@@ -35,8 +37,13 @@ const serviceProviders = [
 ];
 
 @Module({
-  imports: [CommonModule],
+  imports: [CommonModule, DatabaseModule],
   controllers: [UsersController],
-  providers: [DefaultGenderPipe, ...repositoryProvider, ...serviceProviders],
+  providers: [
+    DefaultGenderPipe,
+    ...repositoryProvider,
+    ...serviceProviders,
+    userProvider,
+  ],
 })
 export class UsersModule {}

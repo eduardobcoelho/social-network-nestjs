@@ -6,6 +6,7 @@ import { PostsModule } from './posts/posts.module';
 import { LikesModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
 import { CommonModule } from './common/common.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CommonModule } from './common/common.module';
     LikesModule,
     CommentsModule,
     CommonModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsDate, IsEmail, IsEnum, IsString } from 'class-validator';
-import { UserGender } from '../entity/user.entity';
+import { UserGender } from '../enum';
 
 export class UpdateUserDto {
   @IsString()

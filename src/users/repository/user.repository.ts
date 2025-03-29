@@ -8,7 +8,7 @@ import { UserEntity } from '../entity/user.entity';
 
 export interface IUserRepository {
   find: (value: string | number, key?: UserUnicKeys) => Promise<UserEntity>;
-  create: (data: CreateUserDto) => Promise<void>;
+  create: (data: CreateUserDto) => Promise<UserEntity>;
   update: (data: UpdatePostDto) => Promise<UserEntity>;
 }
 
@@ -25,7 +25,7 @@ export class UserRepository implements IUserRepository {
 
   async create(data: CreateUserDto) {
     const user = this.userRepository.create(data);
-    await this.userRepository.save(user);
+    return await this.userRepository.save(user);
   }
 
   update() {

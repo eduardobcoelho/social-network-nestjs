@@ -13,7 +13,7 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
-  @IsDocument()
+  @IsDocument({ message: 'CPF deve ser válido' })
   @Transform(TransformToOnlyNumbers())
   document: string;
 

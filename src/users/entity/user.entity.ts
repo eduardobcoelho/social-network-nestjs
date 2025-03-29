@@ -3,7 +3,6 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  Unique,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -16,12 +15,10 @@ export class UserEntity {
   @Column({ length: 255 })
   name: string;
 
-  @Column({ length: 255 })
-  @Unique(['email'])
+  @Column({ length: 255, unique: true })
   email: string;
 
-  @Column({ length: 255 })
-  @Unique(['document'])
+  @Column({ length: 255, unique: true })
   document: string;
 
   @Column({ type: 'enum', enum: UserGender })

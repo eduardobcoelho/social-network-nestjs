@@ -1,10 +1,10 @@
-import { UpdatePostDto } from 'src/posts/dto/update-post.dto';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { UserUnicKeys } from '../enum';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../entity/user.entity';
+import { UpdateUserDto } from '../dto/update-user.dto';
 
 export interface IUserRepository {
   find: (
@@ -12,7 +12,7 @@ export interface IUserRepository {
     key?: UserUnicKeys,
   ) => Promise<UserEntity | null>;
   create: (data: CreateUserDto) => Promise<UserEntity>;
-  update: (data: UpdatePostDto) => Promise<UserEntity>;
+  update: (id: number, data: UpdateUserDto) => Promise<UserEntity>;
 }
 
 @Injectable()
@@ -33,7 +33,8 @@ export class UserRepository implements IUserRepository {
     return await this.userRepository.save(user);
   }
 
-  update() {
-    return Promise.resolve({} as UserEntity);
+  async update(id: number, data: UpdateUserDto) {
+    const user = await this.find(id);
+    return await this.userRepository.save({ ...user, ...data });
   }
 }

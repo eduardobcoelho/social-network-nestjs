@@ -1,19 +1,23 @@
 import { Type } from 'class-transformer';
-import { IsDate, IsEmail, IsEnum, IsString } from 'class-validator';
+import { IsDate, IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
 import { UserGender } from '../enum';
 
 export class UpdateUserDto {
   @IsString()
-  name: string;
+  @IsOptional()
+  name?: string;
 
   @IsString()
   @IsEmail()
-  email: string;
+  @IsOptional()
+  email?: string;
 
   @IsEnum(UserGender)
-  gender: UserGender;
+  @IsOptional()
+  gender?: UserGender;
 
   @IsDate()
   @Type(() => Date)
-  birthDate: Date;
+  @IsOptional()
+  birthDate?: Date;
 }

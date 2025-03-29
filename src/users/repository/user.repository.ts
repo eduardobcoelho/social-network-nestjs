@@ -7,7 +7,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../entity/user.entity';
 
 export interface IUserRepository {
-  find: (value: string | number, key?: UserUnicKeys) => Promise<UserEntity>;
+  find: (
+    value: string | number,
+    key?: UserUnicKeys,
+  ) => Promise<UserEntity | null>;
   create: (data: CreateUserDto) => Promise<UserEntity>;
   update: (data: UpdatePostDto) => Promise<UserEntity>;
 }
@@ -19,8 +22,10 @@ export class UserRepository implements IUserRepository {
     private userRepository: Repository<UserEntity>,
   ) {}
 
-  find() {
-    return Promise.resolve({} as UserEntity);
+  async find(value: string | number, key = UserUnicKeys.ID) {
+    return await this.userRepository.findOneBy({
+      [key]: value,
+    });
   }
 
   async create(data: CreateUserDto) {

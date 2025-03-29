@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { UserEntity } from 'src/users/entity/user.entity';
 import { UserUnicKeys } from 'src/users/enum';
+import { IUserRepository } from 'src/users/repository/user.repository';
 
 export interface IFindUserService {
   exec: (value: string | number, key?: UserUnicKeys) => Promise<UserEntity>;
@@ -8,10 +9,14 @@ export interface IFindUserService {
 
 @Injectable()
 export class FindUserService implements IFindUserService {
-  constructor() {}
+  constructor(
+    @Inject('IUserRepository') private readonly userRepository: IUserRepository,
+  ) {}
 
-  exec(value: string | number, key = UserUnicKeys.ID) {
-    console.log(value, key);
-    return Promise.resolve({} as UserEntity);
+  async exec(value: string | number, key = UserUnicKeys.ID) {
+    const user = await this.userRepository.find(value, key);
+    if (!user) throw new NotFoundException('Usuário não encontrado');
+
+    return user;
   }
 }

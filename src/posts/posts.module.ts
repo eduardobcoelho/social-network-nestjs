@@ -1,11 +1,32 @@
 import { Module } from '@nestjs/common';
-import { PostsController } from './posts.controller';
-import { PostsService } from './posts.service';
-import { UsersModule } from 'src/users/users.module';
+import { PostsController } from './controller/posts.controller';
+import { CreatePostService } from './service/create-post/create-post.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PostEntity } from './entity/post.entity';
+import { PostRepository } from './repository/post.repository';
+import { DeletePostService } from './service/delete-post/delete-post.service';
+
+const repositoryProviders = [
+  {
+    provide: 'IPostRepository',
+    useClass: PostRepository,
+  },
+];
+
+const serviceProviders = [
+  {
+    provide: 'ICreatePostService',
+    useClass: CreatePostService,
+  },
+  {
+    provide: 'IDeletePostService',
+    useClass: DeletePostService,
+  },
+];
 
 @Module({
-  imports: [UsersModule],
+  imports: [TypeOrmModule.forFeature([PostEntity])],
   controllers: [PostsController],
-  providers: [PostsService],
+  providers: [...repositoryProviders, ...serviceProviders],
 })
 export class PostsModule {}

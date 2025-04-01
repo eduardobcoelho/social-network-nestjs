@@ -1,8 +1,31 @@
-export class Post {
-  id: number;
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
+
+@Entity({ name: 'posts', schema: 'POSTS' })
+export class PostEntity {
+  @PrimaryGeneratedColumn()
+  id: string;
+
+  @Column()
   userId: number;
+
+  @Column({ length: 1000 })
   text: string;
+
+  @Column()
+  @CreateDateColumn()
   createdAt: Date;
-  updatedAt?: Date;
+
+  @Column()
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 }

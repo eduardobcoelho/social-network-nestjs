@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { CommonModule } from 'src/common/common.module';
 import { DefaultGenderPipe } from './pipes/default-gender/default-gender.pipe';
 import { UsersController } from './controller/users.controller';
@@ -9,6 +9,7 @@ import { DeleteUserService } from './service/delete-user/delete-user.service';
 import { UserRepository } from './repository/user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './entity/user.entity';
+import { PostsModule } from 'src/posts/posts.module';
 
 const pipes = [DefaultGenderPipe];
 
@@ -46,7 +47,11 @@ const exportsServices = [
 ];
 
 @Module({
-  imports: [CommonModule, TypeOrmModule.forFeature([UserEntity])],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity]),
+    CommonModule,
+    forwardRef(() => PostsModule),
+  ],
   controllers: [UsersController],
   providers: [...pipes, ...repositoryProviders, ...serviceProviders],
   exports: [...exportsServices],

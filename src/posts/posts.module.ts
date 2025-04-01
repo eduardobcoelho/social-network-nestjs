@@ -8,6 +8,7 @@ import { DeletePostService } from './service/delete-post/delete-post.service';
 import { UsersModule } from 'src/users/users.module';
 import { FindPostService } from './service/find-post.service.ts/find-post.service';
 import { UpdatePostService } from './service/update-post/update-post.service';
+import { DeleteUserPostsService } from './service/delete-user-posts/delete-user-posts.service';
 
 const repositoryProviders = [
   {
@@ -33,11 +34,23 @@ const serviceProviders = [
     provide: 'IFindPostService',
     useClass: FindPostService,
   },
+  {
+    provide: 'IDeleteUserPostsService',
+    useClass: DeleteUserPostsService,
+  },
+];
+
+const exportsServices = [
+  {
+    provide: 'IDeleteUserPostsService',
+    useClass: DeleteUserPostsService,
+  },
 ];
 
 @Module({
   imports: [TypeOrmModule.forFeature([PostEntity]), UsersModule],
   controllers: [PostsController],
   providers: [...repositoryProviders, ...serviceProviders],
+  exports: [...exportsServices],
 })
 export class PostsModule {}

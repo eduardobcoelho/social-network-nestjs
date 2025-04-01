@@ -10,6 +10,7 @@ export interface IPostRepository {
   create: (data: CreatePostDto) => Promise<PostEntity>;
   update: (id: number, data: UpdatePostDto) => Promise<PostEntity>;
   delete: (id: number) => Promise<void>;
+  deleteUserPosts: (userId: number) => Promise<void>;
 }
 
 @Injectable()
@@ -37,5 +38,9 @@ export class PostRepository implements IPostRepository {
 
   async delete(id: number) {
     await this.repository.softDelete(id);
+  }
+
+  async deleteUserPosts(userId: number) {
+    await this.repository.update({ userId }, { deletedAt: new Date() });
   }
 }

@@ -13,7 +13,7 @@ class IsDocumentConstraint implements ValidatorConstraintInterface {
   }
 
   defaultMessage() {
-    return 'CPF must be a CPF';
+    return 'CPF must be valid';
   }
 }
 

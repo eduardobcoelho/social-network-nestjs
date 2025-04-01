@@ -38,15 +38,17 @@ const serviceProviders = [
   },
 ];
 
+const exportsServices = [
+  {
+    provide: 'IFindUserService',
+    useClass: CreateUserService,
+  },
+];
+
 @Module({
   imports: [CommonModule, TypeOrmModule.forFeature([UserEntity])],
   controllers: [UsersController],
   providers: [...pipes, ...repositoryProviders, ...serviceProviders],
-  exports: [
-    {
-      provide: 'IFindUserService',
-      useClass: CreateUserService,
-    },
-  ],
+  exports: [...exportsServices],
 })
 export class UsersModule {}

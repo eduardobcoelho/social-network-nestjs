@@ -42,5 +42,11 @@ const serviceProviders = [
   imports: [CommonModule, TypeOrmModule.forFeature([UserEntity])],
   controllers: [UsersController],
   providers: [...pipes, ...repositoryProviders, ...serviceProviders],
+  exports: [
+    {
+      provide: 'IFindUserService',
+      useClass: CreateUserService,
+    },
+  ],
 })
 export class UsersModule {}

@@ -20,26 +20,26 @@ export interface IUserRepository {
 export class UserRepository implements IUserRepository {
   constructor(
     @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
+    private repository: Repository<UserEntity>,
   ) {}
 
   async find(value: string | number, key = UserUnicKeys.ID) {
-    return await this.userRepository.findOneBy({
+    return await this.repository.findOneBy({
       [key]: value,
     });
   }
 
   async create(data: CreateUserDto) {
-    const user = this.userRepository.create(data);
-    return await this.userRepository.save(user);
+    const user = this.repository.create(data);
+    return await this.repository.save(user);
   }
 
   async update(id: number, data: UpdateUserDto) {
     const user = await this.find(id);
-    return await this.userRepository.save({ ...user, ...data });
+    return await this.repository.save({ ...user, ...data });
   }
 
   async delete(id: number) {
-    await this.userRepository.softDelete(id);
+    await this.repository.softDelete(id);
   }
 }

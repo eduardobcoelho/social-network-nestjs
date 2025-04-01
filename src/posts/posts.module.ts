@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostEntity } from './entity/post.entity';
 import { PostRepository } from './repository/post.repository';
 import { DeletePostService } from './service/delete-post/delete-post.service';
+import { UsersModule } from 'src/users/users.module';
 
 const repositoryProviders = [
   {
@@ -25,7 +26,7 @@ const serviceProviders = [
 ];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PostEntity])],
+  imports: [TypeOrmModule.forFeature([PostEntity]), UsersModule],
   controllers: [PostsController],
   providers: [...repositoryProviders, ...serviceProviders],
 })

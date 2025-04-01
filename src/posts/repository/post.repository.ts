@@ -13,15 +13,15 @@ export interface IPostRepository {
 export class PostRepository implements IPostRepository {
   constructor(
     @InjectRepository(PostEntity)
-    private postRepository: Repository<PostEntity>,
+    private repository: Repository<PostEntity>,
   ) {}
 
   async create(data: CreatePostDto) {
-    const post = this.postRepository.create(data);
-    return await this.postRepository.save(post);
+    const post = this.repository.create(data);
+    return await this.repository.save(post);
   }
 
   async delete(id: number) {
-    await this.postRepository.softDelete(id);
+    await this.repository.softDelete(id);
   }
 }

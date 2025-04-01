@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Inject,
   Param,
   ParseIntPipe,
@@ -14,10 +15,14 @@ import { ICreatePostService } from '../service/create-post/create-post.service';
 import { IDeletePostService } from '../service/delete-post/delete-post.service';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { IUpdatePostService } from '../service/update-post/update-post.service';
+import { IFindPostService } from '../service/find-post.service.ts/find-post.service';
 
 @Controller('posts')
 export class PostsController {
   constructor(
+    @Inject('IFindPostService')
+    private readonly findPostService: IFindPostService,
+
     @Inject('ICreatePostService')
     private readonly createPostService: ICreatePostService,
 
@@ -27,6 +32,11 @@ export class PostsController {
     @Inject('IDeletePostService')
     private readonly deletePostService: IDeletePostService,
   ) {}
+
+  @Get(':id')
+  async find(@Param('id', ParseIntPipe) id: number) {
+    return await this.findPostService.exec(id);
+  }
 
   @Post()
   async create(@Body(ValidationPipe) input: CreatePostDto) {

@@ -13,6 +13,7 @@ export interface IUserRepository {
   ) => Promise<UserEntity | null>;
   create: (data: CreateUserDto) => Promise<UserEntity>;
   update: (id: number, data: UpdateUserDto) => Promise<UserEntity>;
+  delete: (id: number) => Promise<void>;
 }
 
 @Injectable()
@@ -36,5 +37,9 @@ export class UserRepository implements IUserRepository {
   async update(id: number, data: UpdateUserDto) {
     const user = await this.find(id);
     return await this.userRepository.save({ ...user, ...data });
+  }
+
+  async delete(id: number) {
+    await this.userRepository.softDelete(id);
   }
 }

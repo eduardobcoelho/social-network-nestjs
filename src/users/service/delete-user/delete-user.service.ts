@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { IUserRepository } from 'src/users/repository/user.repository';
 
 export interface IDeleteUserService {
   exec: (id: number) => Promise<void>;
@@ -6,10 +7,11 @@ export interface IDeleteUserService {
 
 @Injectable()
 export class DeleteUserService implements IDeleteUserService {
-  constructor() {}
+  constructor(
+    @Inject('IUserRepository') private readonly userRepository: IUserRepository,
+  ) {}
 
-  exec(id: number) {
-    console.log(id);
-    return Promise.resolve();
+  async exec(id: number) {
+    await this.userRepository.delete(id);
   }
 }

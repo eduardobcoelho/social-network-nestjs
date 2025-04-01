@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   // DefaultValuePipe,
   Get,
   HttpCode,
@@ -18,6 +19,7 @@ import { DefaultGenderPipe } from '../pipes/default-gender/default-gender.pipe';
 import { ICreateUserService } from '../service/create-user/create-user.service';
 import { IUpdateUserService } from '../service/update-user/update-user.service';
 import { IFindUserService } from '../service/find-user/find-user.service';
+import { IDeleteUserService } from '../service/delete-user/delete-user.service';
 
 @Controller('users')
 export class UsersController {
@@ -30,6 +32,9 @@ export class UsersController {
 
     @Inject('IFindUserService')
     private readonly findUserService: IFindUserService,
+
+    @Inject('IDeleteUserService')
+    private readonly deleteUserService: IDeleteUserService,
   ) {}
 
   // @Get()
@@ -60,5 +65,10 @@ export class UsersController {
     @Body(ValidationPipe) input: UpdateUserDto,
   ) {
     return await this.updateUserService.exec(id, input);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    return await this.deleteUserService.exec(id);
   }
 }

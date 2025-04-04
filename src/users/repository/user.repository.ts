@@ -20,7 +20,7 @@ export interface IUserRepository {
 export class UserRepository implements IUserRepository {
   constructor(
     @InjectRepository(UserEntity)
-    private repository: Repository<UserEntity>,
+    private readonly repository: Repository<UserEntity>,
   ) {}
 
   async find(value: string | number, key = UserUnicKeys.ID) {

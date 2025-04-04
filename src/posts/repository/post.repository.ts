@@ -17,7 +17,7 @@ export interface IPostRepository {
 export class PostRepository implements IPostRepository {
   constructor(
     @InjectRepository(PostEntity)
-    private repository: Repository<PostEntity>,
+    private readonly repository: Repository<PostEntity>,
   ) {}
 
   async find(id: number) {

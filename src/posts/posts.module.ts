@@ -6,7 +6,7 @@ import { PostEntity } from './entity/post.entity';
 import { PostRepository } from './repository/post.repository';
 import { DeletePostService } from './service/delete-post/delete-post.service';
 import { UsersModule } from 'src/users/users.module';
-import { FindPostService } from './service/find-post.service.ts/find-post.service';
+import { FindPostService } from './service/find-post/find-post.service';
 import { UpdatePostService } from './service/update-post/update-post.service';
 import { DeleteUserPostsService } from './service/delete-user-posts/delete-user-posts.service';
 

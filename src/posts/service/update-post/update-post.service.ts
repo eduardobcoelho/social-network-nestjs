@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PostEntity } from 'src/posts/entity/post.entity';
 import { IPostRepository } from 'src/posts/repository/post.repository';
-import { IFindPostService } from '../find-post.service.ts/find-post.service';
+import { IFindPostService } from '../find-post/find-post.service';
 import { UpdatePostDto } from 'src/posts/dto/update-post.dto';
 
 export interface IUpdatePostService {

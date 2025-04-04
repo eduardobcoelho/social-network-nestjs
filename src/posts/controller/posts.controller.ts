@@ -15,7 +15,7 @@ import { ICreatePostService } from '../service/create-post/create-post.service';
 import { IDeletePostService } from '../service/delete-post/delete-post.service';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { IUpdatePostService } from '../service/update-post/update-post.service';
-import { IFindPostService } from '../service/find-post.service.ts/find-post.service';
+import { IFindPostService } from '../service/find-post/find-post.service';
 
 @Controller('posts')
 export class PostsController {

@@ -1,15 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateCommentDto } from 'src/comments/dto/create-comment.dto';
 import { CommentEntity } from 'src/comments/entity/comment.entity';
-import { CreatePostDto } from 'src/posts/dto/create-post.dto';
+import { ICommentRepository } from 'src/comments/repository/comment.repository';
+import { IFindPostService } from 'src/posts/service/find-post/find-post.service';
+import { IFindUserService } from 'src/users/service/find-user/find-user.service';
 
 export interface ICreateCommentService {
-  exec: (data: CreatePostDto) => Promise<CommentEntity>;
+  exec: (data: CreateCommentDto) => Promise<CommentEntity>;
 }
 
 @Injectable()
 export class CreateCommentService implements ICreateCommentService {
-  exec(data: CreatePostDto) {
-    console.log(data);
-    return Promise.resolve({} as CommentEntity);
+  constructor(
+    @Inject('ICommentRepository')
+    private readonly commentRepository: ICommentRepository,
+
+    @Inject('IFindUserService')
+    private readonly findUserService: IFindUserService,
+
+    @Inject('IFindPostService')
+    private readonly findPostService: IFindPostService,
+  ) {}
+
+  async exec(data: CreateCommentDto) {
+    const { userId, postId } = data;
+
+    await this.findUserService.exec(userId);
+    await this.findPostService.exec(postId);
+
+    return await this.commentRepository.create(data);
   }
 }

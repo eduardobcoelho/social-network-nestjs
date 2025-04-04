@@ -7,6 +7,8 @@ import { UpdateCommentService } from './service/update-comment/update-comment.se
 import { DeleteCommentService } from './service/delete-comment/delete-comment.service';
 import { CommentRepository } from './repository/comment.repository';
 import { FindCommentService } from './service/find-comment/find-comment.service';
+import { UsersModule } from 'src/users/users.module';
+import { PostsModule } from 'src/posts/posts.module';
 
 const repositoryProviders = [
   {
@@ -35,7 +37,11 @@ const serviceProviders = [
 ];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CommentEntity])],
+  imports: [
+    TypeOrmModule.forFeature([CommentEntity]),
+    UsersModule,
+    PostsModule,
+  ],
   controllers: [CommentsController],
   providers: [...repositoryProviders, ...serviceProviders],
 })

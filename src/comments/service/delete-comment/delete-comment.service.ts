@@ -1,12 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ICommentRepository } from 'src/comments/repository/comment.repository';
 
 export interface IDeleteCommentService {
-  exec: (commentId: number) => Promise<void>;
+  exec: (id: number) => Promise<void>;
 }
 
 @Injectable()
 export class DeleteCommentService implements IDeleteCommentService {
-  async exec(commentId: number) {
-    console.log(commentId);
+  constructor(
+    @Inject('ICommentRepository')
+    private readonly commentRepository: ICommentRepository,
+  ) {}
+
+  async exec(id: number) {
+    await this.commentRepository.delete(id);
   }
 }

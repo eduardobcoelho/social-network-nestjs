@@ -6,6 +6,7 @@ import { CreateCommentService } from './service/create-comment/create-comment.se
 import { UpdateCommentService } from './service/update-comment/update-comment.service';
 import { DeleteCommentService } from './service/delete-comment/delete-comment.service';
 import { CommentRepository } from './repository/comment.repository';
+import { FindCommentService } from './service/find-comment/find-comment.service';
 
 const repositoryProviders = [
   {
@@ -18,6 +19,10 @@ const serviceProviders = [
   {
     provide: 'ICreateCommentService',
     useClass: CreateCommentService,
+  },
+  {
+    provide: 'IFindCommentService',
+    useClass: FindCommentService,
   },
   {
     provide: 'IUpdateCommentService',

@@ -45,6 +45,10 @@ const exportsServices = [
     provide: 'IDeleteUserPostsService',
     useClass: DeleteUserPostsService,
   },
+  {
+    provide: 'IFindPostService',
+    useClass: FindPostService,
+  },
 ];
 
 @Module({

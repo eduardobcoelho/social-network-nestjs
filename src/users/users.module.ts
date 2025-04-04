@@ -42,7 +42,7 @@ const serviceProviders = [
 const exportsServices = [
   {
     provide: 'IFindUserService',
-    useClass: CreateUserService,
+    useClass: FindUserService,
   },
 ];
 
